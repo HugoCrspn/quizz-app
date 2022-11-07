@@ -1,7 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
-const { checkUser } = require('./middleware/auth.middleware');
+const { checkUser, requireAuth } = require('./middleware/auth.middleware');
 
 const app = express();
 
@@ -14,6 +14,9 @@ app.use(cookieParser());
 
 // jwt
 app.get('*', checkUser);
+app.get('/jwtid', requireAuth, (req, res) => {
+    res.status(200).send(res.locals.user.id);
+});
 
 // Define Routes;
 app.use('/api/users', require('./routes/api/user.route'));
