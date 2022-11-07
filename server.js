@@ -1,20 +1,22 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
+const { checkUser } = require('./middleware/auth.middleware');
 
 const app = express();
 
 // Connect Database;
 connectDB();
 
-// Init Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
-app.get('/', (req, res) => res.send('API running'));
+// jwt
+app.get('*', checkUser);
 
 // Define Routes;
-app.use('/api/users', require('./routes/api/user.routes'));
-app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/users', require('./routes/api/user.route'));
 app.use('/api/profile', require('./routes/api/profile.route'));
 app.use('/api/questions', require('./routes/api/question.route'));
 
