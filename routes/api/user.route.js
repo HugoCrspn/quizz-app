@@ -6,16 +6,24 @@ const { check } = require('express-validator');
 
 
 // Auth
-router.post('/register', [
-    check('pseudo', 'Pseudo est requis').not().isEmpty(),
-    check('email', 'Ajoutez un email valide').isEmail(),
-    check('password', 'Ajoutez un password de plus de 6 caractères').isLength({min: 6})
-], authController.signUp);
+router.post(
+    '/register', 
+    [
+        check('pseudo', 'Pseudo est requis').not().isEmpty(),
+        check('email', 'Ajoutez un email valide').isEmail(),
+        check('password', 'Ajoutez un password de plus de 6 caractères').isLength({min: 6})
+    ],
+    authController.signUp
+);
 
-router.post('/login', [
-    check('email', 'Ajoutez un email valide').isEmail(),
-    check('password', 'Le mot de passe n\'existe pas').exists()
-], authController.signIn);
+router.post(
+    '/login', 
+    [
+        check('email', 'Ajoutez un email valide').isEmail(),
+        check('password', 'Le mot de passe n\'existe pas').exists()
+    ], 
+    authController.signIn
+);
 
 router.get('/logout', authController.logout);
 
