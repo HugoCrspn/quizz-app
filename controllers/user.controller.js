@@ -41,14 +41,14 @@ module.exports.updateUser = async (req, res) => {
 };
 
 // Delete User
-module.exports.deleteUser = async (req, res) => {
-    if (!ObjectID.isValid(req.params.id))
-        return res.status(400).send('ID inconnue (delete user) : ' + req.params.id);
+// module.exports.deleteUser = async (req, res) => {
+//     if (!ObjectID.isValid(req.params.id))
+//         return res.status(400).send('ID inconnue (delete user) : ' + req.params.id);
 
-    try {
-        await UserModel.remove({_id: req.params.id}).exec();
-        res.status(200).json({message: "Succès, l'utilisateur est supprimé"})
-    } catch (err) {
-        return res.status(500).send({message:err});
-    }
-}
+//     try {
+//         await UserModel.remove({_id: req.params.id}).exec();
+//         res.status(200).json({message: "Succès, l'utilisateur est supprimé"})
+//     } catch (err) {
+//         return res.status(500).send({message:err});
+//     }
+// }

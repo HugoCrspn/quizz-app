@@ -1,7 +1,10 @@
 const ProfileModel = require('../models/profile.model');
 const UserModel = require('../models/user.model');
 const { validationResult } = require('express-validator');
+const { json } = require('express');
+const mongoose = require('mongoose');
 
+// Get one profile (with user_id) (with loggedin)
 module.exports.userProfile = async (req, res) => {
     try {
         const profile = await ProfileModel.findOne({ user: res.locals.user.id }).populate('user', ['pseudo']);
@@ -15,6 +18,7 @@ module.exports.userProfile = async (req, res) => {
     }
 }
 
+// Create or update profile of user
 module.exports.createOrUpdateUserProfile = async (req, res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
@@ -26,7 +30,6 @@ module.exports.createOrUpdateUserProfile = async (req, res) => {
     const {company, website, location, bio, twitter, linkedin, instagram, github} = req.body;
 
     // Build profile object
-
     const profileFields = {};
 
     profileFields.user = res.locals.user.id
@@ -62,4 +65,50 @@ module.exports.createOrUpdateUserProfile = async (req, res) => {
         res.status(500).send('Server Error');
     }
 
+}
+
+// Get all profiles
+module.exports.getAllProfiles = async (req, res) => {
+    try {
+        const profiles = await ProfileModel.find().populate('user', ['pseudo']);
+        res.json(profiles);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
+    }
+}
+
+// Get profile with UserId (url params)
+module.exports.getProfileWithUserId = async (req, res) => {
+
+    try {
+        const profile = await ProfileModel.findOne({ user: req.params.userid}).populate('user', ['pseudo']);
+        if(!profile) {
+            return res.status(400).json({ msg: 'Profile not found'});
+        }
+        res.json(profile);
+    } catch (error) {
+        console.error(error.message);
+        if(error.kind == 'ObjectId') {
+            return res.status(400).json({ msg: 'Profile not found'});
+        }
+        res.status(500).send('Server Error');
+    }
+
+}
+
+// Delete user & profile
+module.exports.deleteProfileAndUser = async (req, res) => {
+
+    try {
+        // Remove profile
+        await ProfileModel.remove({ user: res.locals.user.id }).exec();;
+        // Remove user
+        await UserModel.remove({_id: res.locals.user.id}).exec();
+        res.json({ msg: 'User deleted'})
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
+    }
+    
 }

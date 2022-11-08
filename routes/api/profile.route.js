@@ -7,5 +7,8 @@ const { check } = require('express-validator');
 // Get current users profile
 router.get('/me', auth.checkUser, profileController.userProfile);
 router.post('/', auth.checkUser, profileController.createOrUpdateUserProfile);
+router.get('/', profileController.getAllProfiles);
+router.get('/user/:userid', profileController.getProfileWithUserId);
+router.delete('/', auth.checkUser, profileController.deleteProfileAndUser);
 
 module.exports = router;
