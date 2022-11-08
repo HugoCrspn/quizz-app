@@ -20,9 +20,6 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    score: {
-        type: [String]
-    },
     picture: {
         type: String,
         default: "./uploads/profil/random-user.png"

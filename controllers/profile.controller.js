@@ -1,8 +1,7 @@
 const ProfileModel = require('../models/profile.model');
 const UserModel = require('../models/user.model');
 const { validationResult } = require('express-validator');
-const { json } = require('express');
-const mongoose = require('mongoose');
+
 
 // Get one profile (with user_id) (with loggedin)
 module.exports.userProfile = async (req, res) => {
@@ -110,5 +109,23 @@ module.exports.deleteProfileAndUser = async (req, res) => {
         console.error(error.message);
         res.status(500).send('Server Error');
     }
+
+}
+
+// Update score
+module.exports.updateScore = async (req, res) => {
+
+    try {
+        const profile = await ProfileModel.findOne({ user: res.locals.user.id });
+
+        // profile.score.css = 10;
+
+        await profile.save();
     
+        res.json(profile);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ msg: 'Server Error'});
+    }
+
 }

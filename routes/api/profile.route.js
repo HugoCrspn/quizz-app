@@ -10,5 +10,6 @@ router.post('/', auth.checkUser, profileController.createOrUpdateUserProfile);
 router.get('/', profileController.getAllProfiles);
 router.get('/user/:userid', profileController.getProfileWithUserId);
 router.delete('/', auth.checkUser, profileController.deleteProfileAndUser);
+router.put('/score', auth.checkUser, profileController.updateScore);
 
 module.exports = router;

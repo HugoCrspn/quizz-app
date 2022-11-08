@@ -19,7 +19,18 @@ const ProfileSchema = new mongoose.Schema({
         default: 'Newbie 1'
     },
     score: {
-        type: [String]
+        html: {
+            type: Number,
+            default: 0
+        },
+        css: {
+            type: Number,
+            default: 0
+        },
+        javascript: {
+            type: Number,
+            default: 0
+        }
     },
     bio: {
         type: String
