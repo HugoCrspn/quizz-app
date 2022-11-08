@@ -1,6 +1,6 @@
 # Quizz App for Developers <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Flying%20Saucer.png" alt="Flying Saucer" width="25" height="25" />
 
-![alt text](https://github.com/HugoCrspn/redux-toolkit/img/app-v1.png)
+![alt text](https://github.com/HugoCrspn/quizz-app/img/app-v1.png)
 
 ## About the project
 
