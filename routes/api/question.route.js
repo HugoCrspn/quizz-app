@@ -3,7 +3,9 @@ const router = express.Router();
 const questionController = require('../../controllers/question.controller');
 const { check } = require('express-validator');
 
-// Crud
+// CRUD
+
+// C - Create question
 router.post(
     '/add', 
     [
@@ -40,5 +42,10 @@ router.put(
     ],
     questionController.updateQuestion
 );
+
+// TODO Ajoutez restriction sur la route pour que ce soit uniquement les admins qui puissent supprimer.
+// D - Delete question
+router.delete('/delete/:id', questionController.deleteQuestion);
+
 
 module.exports = router;

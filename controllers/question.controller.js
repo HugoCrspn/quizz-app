@@ -113,3 +113,14 @@ module.exports.updateQuestion = async (req, res) => {
         res.status(500).json({ msg: 'Server Error'});
     }
 }
+
+// delete question with id
+module.exports.deleteQuestion = async (req, res) => {
+    try {
+        await QuestionModel.findByIdAndDelete({ _id: req.params.id});
+        res.status(200).json({ msg: 'Question deleted'});
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ msg: 'Server Error'});
+    }
+}
